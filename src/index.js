@@ -1,3 +1,4 @@
+// jshint esversion:6
 const MORSE_TABLE = {
     '.-':     'a',
     '-...':   'b',
@@ -34,11 +35,21 @@ const MORSE_TABLE = {
     '--...':  '7',
     '---..':  '8',
     '----.':  '9',
-    '-----':  '0',
+    '-----':  '0'
 };
 
 function decode(expr) {
-    // write your solution here
+    let resultStr = "";
+    let str = ('0000000000' + expr).substring(-10);
+    let strArr = str.match( /.{10}/g);
+
+    for (let i=1; i < strArr.length; i++) {
+        let letter = strArr[i];
+        letter = letter.replace(/00/g, '').replace(/10/g, '.').replace(/11/g, '-').replace("**********", " ");
+        resultStr += MORSE_TABLE[letter];
+    }
+
+    return resultStr.replace(/undefined/g, " ");
 }
 
 module.exports = {
